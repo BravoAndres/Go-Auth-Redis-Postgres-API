@@ -6,15 +6,22 @@ import (
 
 type Queries struct {
 	*queries.UserQueries
+	*queries.TokenQueries
 }
 
 func ConnectDB() (*Queries, error) {
-	db, err := PostgreSQLConnection()
+	pgdb, err := PostgreSQLConnection()
+	if err != nil {
+		return nil, err
+	}
+
+	rdb, err := NewRedisClient()
 	if err != nil {
 		return nil, err
 	}
 
 	return &Queries{
-		UserQueries: &queries.UserQueries{DB: db},
+		UserQueries:  &queries.UserQueries{DB: pgdb},
+		TokenQueries: &queries.TokenQueries{Client: rdb},
 	}, nil
 }

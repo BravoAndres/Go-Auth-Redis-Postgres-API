@@ -33,22 +33,29 @@ func (q *UserQueries) GetUsers() ([]models.User, error) {
 	return users, nil
 }
 
-// GetUser method for getting one user by given ID.
 func (q *UserQueries) GetUserById(id int) (models.User, error) {
-	// Define user variable.
 	user := models.User{}
 
-	// Define query string.
 	query := `SELECT * FROM users WHERE id = $1`
 
-	// Send query to database.
 	err := q.Get(&user, query, id)
 	if err != nil {
-		// Return empty object and error.
 		return user, err
 	}
 
-	// Return query result.
+	return user, nil
+}
+
+func (q *UserQueries) GetUserByEmail(email string) (models.User, error) {
+	user := models.User{}
+
+	query := `SELECT * FROM users WHERE email = $1`
+
+	err := q.Get(&user, query, email)
+	if err != nil {
+		return user, err
+	}
+
 	return user, nil
 }
 
@@ -66,8 +73,7 @@ func (q *UserQueries) GetUserByCredentials(email string, password string) (model
 }
 
 func (q *UserQueries) CreateUser(u *models.User) error {
-	hasher := hasher.NewSHA1Hasher(os.Getenv("PASSWORD_HASH_SALT"))
-	hashedPassword, err := hasher.Hash(u.Password)
+	hashedPassword, err := hasher.NewSHA1Hasher(os.Getenv("PASSWORD_HASH_SALT")).Hash(u.Password)
 	if err != nil {
 		logger.Error(err.Error())
 		return err

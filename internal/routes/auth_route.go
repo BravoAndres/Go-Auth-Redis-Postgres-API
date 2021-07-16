@@ -11,11 +11,9 @@ func AuthRoutes(app *fiber.App) {
 	route := app.Group("/api/v1")
 
 	route.Post("/login", controllers.Login)
-	route.Post("/token/new", controllers.GetNewAccessToken)
-
-	//JWT Middleware
-	// route.Use(middleware.AuthMiddleware())
+	route.Post("/token/new", controllers.RefreshToken)
 
 	//Restricted Routes
+	route.Post("/logout", middleware.AuthMiddleware(), controllers.Logout)
 	route.Get("/protected", middleware.AuthMiddleware(), controllers.Protected)
 }

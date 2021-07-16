@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/BravoAndres/fiber-api/pkg/auth"
+	"github.com/BravoAndres/fiber-api/pkg/database"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -33,10 +34,15 @@ func AuthMiddleware() fiber.Handler {
 				"error": true,
 				"msg":   "Bad Signature",
 			})
+		case "key does not exist":
+			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+				"error": true,
+				"msg":   "Token expired",
+			})
 		default:
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"error":    true,
-				"msg":      "Invalid Token",
+				"msg":      "Unexpected Error",
 				"msgError": err.Error(),
 			})
 		}
@@ -54,14 +60,34 @@ func AuthMiddleware() fiber.Handler {
 			return errHandler(c, err)
 		}
 
-		token, err := authManager.Parse(auth)
+		claims, err := authManager.Parse(auth)
 		if err != nil {
 			return errHandler(c, err)
 		}
 
-		// Store user information from token into context.
-		c.Locals("userId", token)
-		return successHandler(c)
+		db, err := database.ConnectDB()
+		if err != nil {
+			return errHandler(c, err)
+		}
+
+		refreshUuid, ok := claims["refresh_uuid"].(string)
+		if ok {
+			userId, err := db.FetchToken(refreshUuid)
+			if err != nil {
+				return errHandler(c, err)
+			}
+			c.Locals("userId", userId)
+			c.Locals("refresh_uuid", refreshUuid)
+
+			return successHandler(c)
+		}
+
+		_, ok = claims["access_uuid"].(string)
+		if ok {
+			return errHandler(c, errors.New("use your refresh token instead"))
+		}
+
+		return errHandler(c, errors.New("could not set locals"))
 
 	}
 }

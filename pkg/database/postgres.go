@@ -9,7 +9,6 @@ import (
 	"github.com/jmoiron/sqlx"
 
 	_ "github.com/jackc/pgx/v4/stdlib"
-	_ "github.com/joho/godotenv/autoload"
 )
 
 func PostgreSQLConnection() (*sqlx.DB, error) {
