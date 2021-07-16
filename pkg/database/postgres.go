@@ -22,9 +22,8 @@ func PostgreSQLConnection() (*sqlx.DB, error) {
 	db.SetMaxIdleConns(maxIdleConn)
 	db.SetConnMaxLifetime(time.Duration(maxLifetimeConn))
 
-	// Try to ping database.
 	if err := db.Ping(); err != nil {
-		defer db.Close() // close database connection
+		defer db.Close()
 		return nil, fmt.Errorf("error, not sent ping to database, %w", err)
 	}
 

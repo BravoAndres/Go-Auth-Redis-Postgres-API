@@ -14,22 +14,16 @@ type UserQueries struct {
 	*sqlx.DB
 }
 
-// GetUsers method for getting all users.
 func (q *UserQueries) GetUsers() ([]models.User, error) {
-	// Define users variable.
 	users := []models.User{}
 
-	// Define query string.
 	query := `SELECT * FROM users`
 
-	// Send query to database.
 	err := q.Select(&users, query)
 	if err != nil {
-		// Return empty object and error.
 		return users, err
 	}
 
-	// Return query result.
 	return users, nil
 }
 

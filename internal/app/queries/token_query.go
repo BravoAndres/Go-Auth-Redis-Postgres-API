@@ -16,7 +16,7 @@ type TokenQueries struct {
 }
 
 func (q *TokenQueries) SaveToken(td *models.TokenDetails, userId string) error {
-	at := time.Unix(td.AtExpiresAt, 0) //converting Unix to UTC(to Time object)
+	at := time.Unix(td.AtExpiresAt, 0)
 	rt := time.Unix(td.RtExpiresAt, 0)
 	now := time.Now()
 

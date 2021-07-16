@@ -95,7 +95,6 @@ func AuthMiddleware() fiber.Handler {
 func extractTokenFromHeader(c *fiber.Ctx) (string, error) {
 	bearerToken := c.Get("Authorization")
 
-	// Get token from: "Bearer <token>"" format
 	token := strings.Split(bearerToken, " ")
 	if len(token) == 2 && strings.EqualFold(bearerToken[:len(token[0])], "Bearer") {
 		return token[1], nil

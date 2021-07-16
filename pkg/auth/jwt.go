@@ -9,7 +9,6 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-// TokenManager provides logic for JWT Access & Refresh tokens generation and parsing.
 type TokenManager interface {
 	NewAccessToken() (string, error)
 	Parse(accessToken string) (string, error)

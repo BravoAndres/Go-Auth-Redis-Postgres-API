@@ -224,22 +224,7 @@ func RefreshToken(c *fiber.Ctx) error {
 				"msg":   err.Error(),
 			})
 		}
-	} //else {
-	// 	accessUuid, ok := claims["access_uuid"].(string)
-	// 	if !ok {
-	// 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-	// 			"error": true,
-	// 			"msg":   err.Error(),
-	// 		})
-	// 	}
-	// 	deleted, err := db.DeleteToken(accessUuid)
-	// 	if err != nil && deleted == 0 {
-	// 		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-	// 			"error": true,
-	// 			"msg":   err.Error(),
-	// 		})
-	// 	}
-	// }
+	}
 
 	userId, ok := claims["sub"].(string)
 	if !ok {
@@ -282,9 +267,8 @@ func RefreshToken(c *fiber.Ctx) error {
 // Protected content controller
 func Protected(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
-		"error":        false,
-		"msg":          nil,
-		"user_id":      c.Locals("userId"),
-		"refresh_uuid": c.Locals("refresh_uuid"),
+		"error":   false,
+		"msg":     nil,
+		"user_id": c.Locals("userId"),
 	})
 }
