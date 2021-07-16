@@ -1,7 +1,6 @@
 package app
 
 import (
-	"errors"
 	"os"
 	"os/signal"
 	"syscall"
@@ -17,7 +16,6 @@ import (
 )
 
 func Run() {
-	// Define a new Fiber app with config.
 	app := fiber.New(fiber.Config{
 		ReadTimeout: time.Second * time.Duration(60),
 	})
@@ -37,7 +35,8 @@ func Run() {
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt, syscall.SIGTERM)
 
-	err := errors.New("")
+	var err error
+
 	select {
 	case s := <-interrupt:
 		logger.Info("app - Run - signal: " + s.String())
@@ -45,39 +44,9 @@ func Run() {
 		logger.Error(err, "app - Run - httpServer.Notify")
 	}
 
-	// Shutdown
 	err = httpServer.Shutdown()
 	if err != nil {
 		logger.Error(err, "app - Run - httpServer.Shutdown")
 	}
 
-	// Create channel for idle connections.
-	// idleConnsClosed := make(chan struct{})
-
-	// go func() {
-	// 	sigint := make(chan os.Signal, 1)
-	// 	signal.Notify(sigint, os.Interrupt) // Catch OS signals.
-	// 	<-sigint
-
-	// 	// Received an interrupt signal, shutdown.
-	// 	if err := app.Shutdown(); err != nil {
-	// 		// Error from closing listeners, or context timeout:
-	// 		logger.Error(err)
-
-	// 		return
-	// 	}
-
-	// 	close(idleConnsClosed)
-	// }()
-
-	// // Run server.
-	// if err := app.Listen(os.Getenv("SERVER_URL")); err != nil {
-	// 	logger.Error(err)
-
-	// 	return
-	// }
-
-	// logger.Info("Server started")
-
-	// <-idleConnsClosed
 }
