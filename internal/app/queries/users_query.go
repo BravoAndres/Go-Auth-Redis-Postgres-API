@@ -5,9 +5,9 @@ import (
 
 	"github.com/jmoiron/sqlx"
 
-	"github.com/BravoAndres/fiber-api/internal/app/models"
-	"github.com/BravoAndres/fiber-api/pkg/hasher"
-	"github.com/BravoAndres/fiber-api/pkg/logger"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/internal/app/models"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/pkg/hasher"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/pkg/logger"
 )
 
 type UserQueries struct {

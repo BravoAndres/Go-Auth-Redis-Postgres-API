@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/BravoAndres/fiber-api/internal/app/models"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/internal/app/models"
 	"github.com/go-redis/redis/v8"
 )
 

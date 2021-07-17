@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/BravoAndres/fiber-api/internal/app/models"
-	"github.com/BravoAndres/fiber-api/pkg/database"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/internal/app/models"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/pkg/database"
 	"github.com/gofiber/fiber/v2"
 )
 

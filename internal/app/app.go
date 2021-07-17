@@ -6,10 +6,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/BravoAndres/fiber-api/internal/middleware"
-	"github.com/BravoAndres/fiber-api/internal/routes"
-	"github.com/BravoAndres/fiber-api/pkg/httpserver"
-	"github.com/BravoAndres/fiber-api/pkg/logger"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/internal/middleware"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/internal/routes"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/pkg/httpserver"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/pkg/logger"
 	"github.com/gofiber/fiber/v2"
 
 	_ "github.com/joho/godotenv/autoload"

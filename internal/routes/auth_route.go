@@ -3,8 +3,8 @@ package routes
 import (
 	"github.com/gofiber/fiber/v2"
 
-	"github.com/BravoAndres/fiber-api/internal/app/controllers"
-	"github.com/BravoAndres/fiber-api/internal/middleware"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/internal/app/controllers"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/internal/middleware"
 )
 
 func AuthRoutes(app *fiber.App) {

@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/BravoAndres/fiber-api/internal/app/queries"
+	"github.com/BravoAndres/Go-Auth-Redis-Postgres-API/internal/app/queries"
 )
 
 type Queries struct {
